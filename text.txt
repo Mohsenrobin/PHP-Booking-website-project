@@ -1,0 +1,124 @@
+<div id="main">
+          <?php foreach($r1 as $results){ ?>
+              <label for="searchResult"><a href="selectedProperty.php?id=<?php echo $slctdProp?>"> go to page</a>
+              ID : <?php echo $results['accommodationID'];?>
+              Name :  <?php echo $results['accommodation_name'];?>
+              Description : <?php echo $results['description'];?>
+              Price_per_night : <?php echo $results['price_per_night'];?>
+              Location : <?php echo $results['location'];?>
+              Country : <?php echo $results['country'];?><br>
+              </a></label>
+    
+          <?php } ?>
+        </div>
+
+
+
+        INSERT INTO `customers` (`username`, `password_hash`, `customer_forename`, `customer_surname`,
+         `customer_postcode`, `customer_address1`, `customer_address2`, `date_of_birth`)
+          VALUES ('111', '111', '11', '11', '111', '111', '111', '2022-09-12 18:55:52.000000');
+
+
+
+
+
+
+
+
+
+
+
+////1
+
+
+
+ 
+<?php function setSearchBar(){?>
+    <form class="searchForm" action="listingPage.php" method="post">
+    <input type="text" placeholder="Destination" id="Destination" name="Destination">
+    <input type="number" placeholder="number of guests" id="numberOfPeople" name="numberOfPeople">
+    From <input type="date" id="start" name="trip-start" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>" max="2022-12-31">
+    To <input type="date" id="end" name="trip-end" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>" max="2022-12-31">
+    <button type="submit" name="submit">Submit</button>
+    </form> 
+<?php } ?>
+
+<?php function getConnection(){
+
+    define('DB_NAME', 'unn_w21067284'); 
+    define('DB_USER', 'root');
+    define('DB_PASSWORD', ''); 
+    define('DB_HOST', 'localhost'); 
+
+    $conn = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME) or die("Can not connect to DB");
+
+    if($conn) {return $conn;}
+
+ } ?>
+
+<?php function getFooter(){
+    
+    $footer = <<<FOOT
+                <footer>
+                    <main>
+                        <div id =footerGridContainer>
+                        
+                    </div>
+
+
+                </footer>
+            </body>
+    FOOT;
+
+    return $footer;
+} ?>
+
+
+<?php function getHeader(){
+
+
+    session_start();
+        $user = $_SESSION['forename'] ?? 'Guest';
+        $userID =  $_SESSION['id'] ?? '';
+    $header = <<<HEAD
+        <head>
+            <meta charset="utf-8" />
+
+            <link rel='stylesheet' type="text/css" href='style/headerStyle.css?version=51'>
+            <link rel='stylesheet' type="text/css" href='style/mainStyle.css?version=51'>
+            <link rel='stylesheet' type="text/css" href='style/bodyStyle.css?version=51'>
+            <link rel='stylesheet' type="text/css" href='style/footerStyle.css?version=51'>
+            <link rel='stylesheet' type="text/css" href='style/listingPage.css?version=51'>
+
+            <title>HomePage</title>
+        </head>
+
+        <body>
+            <header>
+                <div id =headerGridContainer>
+
+                    <div id="logoDiv">
+                    <a href="index.php">Logo</a>
+                    </div id="greetingDiv">
+                    <div id="headerNav">
+                        <ul>
+                            <li><a href="">Hi $user user ID : $userID </a>  </li>
+                            <li><a href="">Credits</a></li>
+                            <li><a href="">Wireframes</a></li>
+                            <li><a href="register.php">Register</a></li>
+                            <li><a href="signIn.php">Login</a></li>
+                            <li><a href="index.php">Home</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </header>
+
+    HEAD;
+    return $header;
+
+} ?>
+
+
+server changes

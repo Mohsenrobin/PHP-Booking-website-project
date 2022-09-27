@@ -1,42 +1,27 @@
 <?php
-//Include functions.php to have access to functions like connection, header and footer
-include 'functions.php';
-
-//checking sessions status
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
-//getting the connection
+include 'functions.php';
 $conn = getConnection();
-
-//This varibale is used to print out the error.
-$error = null;
-// Check if submit button is pressed by user, so we can evaluate the fields.
 if (isset($_POST['submit'])) {
 
-  //Checking for array key exist
-  if (array_key_exists('email', $_REQUEST)) {
+  if (array_key_exists('email', $_REQUEST)) :
     $emailInput = $_REQUEST['email'];
-  } else {
-    errorHandling("Array key dose not exist");
-  }
-
+  endif;
 
   $username = mysqli_real_escape_string($conn, $emailInput);
 
-  if (array_key_exists('Password', $_REQUEST)) {
+  if (array_key_exists('Password', $_REQUEST)) :
     $passwordInput = $_REQUEST['Password'];
-  } else {
-    errorHandling("Array key dose not exist");
-  }
-
+  endif;
 
   $password = mysqli_real_escape_string($conn, $passwordInput);
 
-  //Making sure fields are not empty
+
   if (!empty($username) or !empty($password)) {
 
-    //looking for the user in the databse.
+
     $sql = "SELECT * FROM customers WHERE username = ?";
 
     if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -48,27 +33,22 @@ if (isset($_POST['submit'])) {
       $result = mysqli_stmt_get_result($stmt);
     }
     if ($result) {
-      //Here we check if user has found then evaluate the password. By using password_verify method we can 
-      // get the password and compare it to the password that user entered.
       while ($row = mysqli_fetch_assoc($result)) {
         if (password_verify($password, $row['password_hash'])) {
           $_SESSION["forename"] = $row['customer_forename'];
           $_SESSION['id'] = $row['customerID'];
           echo $_SESSION["forename"] . $_SESSION['id'] . " sdfasdf" . $row['customer_forename'];
           header('location: index.php');
+        } else {
+          echo "password is incorrect or ";
         }
-      }
-      //Printing out an error if user or password was incorrect
-      if (empty($error)) {
-        $error = errorHandling("Username or password  is incorrect");
-      }
+      }  
+        echo "user not find";
     }
-    //Free the result
     mysqli_free_result($result);
   }
 }
 
-//Free the result
 mysqli_close($conn);
 
 
@@ -77,9 +57,8 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html lang="en">
-<!-- Getting the Header  -->
 <?php echo getHeader('Login') ?>
-<!-- form wrapper -->
+
 <div class="loginBox">
   <form class="loginForm" action="login.php" method="POST">
     <h1>Login</h1>
@@ -95,7 +74,6 @@ mysqli_close($conn);
     <p>Don'n have an account ? create one <a href="register.php">Register</a>.</p>
   </form>
 </div>
-<!-- Getting the Footer  -->
 <?php echo getFooter() ?>
 
 

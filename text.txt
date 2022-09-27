@@ -1,0 +1,304 @@
+<div id="main">
+          <?php foreach($r1 as $results){ ?>
+              <label for="searchResult"><a href="selectedProperty.php?id=<?php echo $slctdProp?>"> go to page</a>
+              ID : <?php echo $results['accommodationID'];?>
+              Name :  <?php echo $results['accommodation_name'];?>
+              Description : <?php echo $results['description'];?>
+              Price_per_night : <?php echo $results['price_per_night'];?>
+              Location : <?php echo $results['location'];?>
+              Country : <?php echo $results['country'];?><br>
+              </a></label>
+    
+          <?php } ?>
+        </div>
+
+
+
+        INSERT INTO `customers` (`username`, `password_hash`, `customer_forename`, `customer_surname`,
+         `customer_postcode`, `customer_address1`, `customer_address2`, `date_of_birth`)
+          VALUES ('111', '111', '11', '11', '111', '111', '111', '2022-09-12 18:55:52.000000');
+
+
+
+
+
+
+
+
+
+
+
+////1
+
+
+
+ 
+<?php function setSearchBar(){?>
+    <form class="searchForm" action="listingPage.php" method="post">
+    <input type="text" placeholder="Destination" id="Destination" name="Destination">
+    <input type="number" placeholder="number of guests" id="numberOfPeople" name="numberOfPeople">
+    From <input type="date" id="start" name="trip-start" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>" max="2022-12-31">
+    To <input type="date" id="end" name="trip-end" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>" max="2022-12-31">
+    <button type="submit" name="submit">Submit</button>
+    </form> 
+<?php } ?>
+
+<?php function getConnection(){
+
+    define('DB_NAME', 'unn_w21067284'); 
+    define('DB_USER', 'root');
+    define('DB_PASSWORD', ''); 
+    define('DB_HOST', 'localhost'); 
+
+    $conn = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME) or die("Can not connect to DB");
+
+    if($conn) {return $conn;}
+
+ } ?>
+
+<?php function getFooter(){
+    
+    $footer = <<<FOOT
+                <footer>
+                    <main>
+                        <div id =footerGridContainer>
+                        
+                    </div>
+
+
+                </footer>
+            </body>
+    FOOT;
+
+    return $footer;
+} ?>
+
+
+<?php function getHeader(){
+
+
+    session_start();
+        $user = $_SESSION['forename'] ?? 'Guest';
+        $userID =  $_SESSION['id'] ?? '';
+    $header = <<<HEAD
+        <head>
+            <meta charset="utf-8" />
+
+            <link rel='stylesheet' type="text/css" href='style/headerStyle.css?version=51'>
+            <link rel='stylesheet' type="text/css" href='style/mainStyle.css?version=51'>
+            <link rel='stylesheet' type="text/css" href='style/bodyStyle.css?version=51'>
+            <link rel='stylesheet' type="text/css" href='style/footerStyle.css?version=51'>
+            <link rel='stylesheet' type="text/css" href='style/listingPage.css?version=51'>
+
+            <title>HomePage</title>
+        </head>
+
+        <body>
+            <header>
+                <div id =headerGridContainer>
+
+                    <div id="logoDiv">
+                    <a href="index.php">Logo</a>
+                    </div id="greetingDiv">
+                    <div id="headerNav">
+                        <ul>
+                            <li><a href="">Hi $user user ID : $userID </a>  </li>
+                            <li><a href="">Credits</a></li>
+                            <li><a href="">Wireframes</a></li>
+                            <li><a href="register.php">Register</a></li>
+                            <li><a href="signIn.php">Login</a></li>
+                            <li><a href="index.php">Home</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </header>
+
+    HEAD;
+    return $header;
+
+} ?>
+
+
+server changes
+
+
+session_start();
+
+        $user = $_SESSION['forename'];
+        $userID =  $_SESSION['id'];
+        $getuser = getUserFunction($userID);
+
+
+
+
+        <li><a href="">Hi $user user ID : $userID </a>  </li>
+                            $getuser
+
+
+
+
+<?php function getUserFunction($input2)
+    {
+        if (empty($input2)) {
+            $gg = <<<hh
+                <li><a href="register.php">Register</a></li>
+                <li><a href="signIn.php">Login</a></li>
+            hh;
+        } else {
+            if (isset($_POST['submit11'])) {
+                signOut();
+            } // SUBMIT RO AZAD KON CODE KAR MIKONE
+            $gg = <<<hh
+                <li><button type="submit" name="submit11">Submit</button></li>
+                <li><a href="register.php">Register</a></li>
+                <li><a href="signIn.php">Login</a></li>
+            hh;
+        }
+        return $gg;
+    } ?>
+
+ <?php function signOut()
+    {
+        unset($_SESSION['forename']);
+        unset($_SESSION['id']);
+    } ?>
+
+
+SELECT * FROM accommodation a, booking b WHERE (`location` = 'shiraz' or country = 'iran' ) 
+and ( start_date <= 2022-09-14 or end_date > 2022-09-15 )
+
+ )
+
+
+
+    2022-09-14 00:00:00
+
+
+
+
+
+
+    $sql = "SELECT * FROM accommodation a, booking b
+      WHERE (`location` = ? or  country = ? ) and (( `start_date` > ? or `end_date` <= ? ) and 
+      ( `start_date` >= ? or `end_date` < ? ) nand ( `start_date` >= ? and `end_date` < ? )) and a.accommodationID = b.accommodationID";
+  //
+  if ($stmt = mysqli_prepare($conn, $sql)) {
+
+    mysqli_stmt_bind_param($stmt, "ssssssss", $destination, $destination,$trip_start,$trip_start,$trip_end,$trip_end,$trip_start,$trip_end);
+
+
+
+$tehran = "Tehran, the Capital of Iran locating on the hillside of the Alborz mountain chain and near Damavand,
+ the highest volcanic peak in Iran. Demonstrating traditional and modern architecture,
+  Azadi square symbolized Tehran in the past and Milad tower plays this role, at present.
+   Placed in a large area, Tehran is one of the biggest,
+    most significant metropolitans in the world with an extremely increasing population.";
+$tehranIMG = "img/arman-taherian-c4pe3HEhnig-unsplash.jpg";
+$tehranSection = "exp1";
+
+$shiraz = "Shiraz is known as the most significant tourism center, the 6th populous city,
+ the cultural capital of the country, 2nd literary city in the world, the 3rd religious city,
+  the 3rd holy shrine of Iran, and the city of poetry, wine, and flower.
+   The tombs of several poets such as Hafez and Sa’adi are placed in Shiraz which embraces a major part of Iran’s ancient history,
+    historical, cultural, religious, and natural attractions.";
+$shirazIMG = "img/steven-su-AxhfHp6fJ2M-unsplash small.jpg";
+$shirazSection = "exp3";
+
+$neyshaboor = "Neyshabur is one of the oldest cities and most important cultural, historical,
+ tourism, industrial, and population centers of Iran, which was located on the Silk Road in the past. This city has been registered on UNESCO intangible heritage list.
+  Neyshabur is known for its turquoise due to having many mines and turquoise cutting manufactories which is one of the main occupations in this city.";
+$neyshaboorIMG = "img/mohammad-rahighi-18AYh3PHQ8w-unsplash.jpg";
+$neyshaboorSection = "exp2";
+
+$ramsar = "Ramsar is known as the most beautiful city in the north of Iran. 
+The Caspian Sea bounds this city from the north and Alborz mountain range from the south. 
+The climate of Ramsar is hot and humid in summer and mild in winter. 
+The Ramsar Convention is an international agreement in which member states to study and support the world's most important wetlands, especially those inhabited by waterfowl.";
+$ramsarIMG = "img/benyamin-bohlouli-8Wvsc5S0iz8-unsplash.jpg";
+$ramsarSection = "exp4"
+
+?>
+
+
+
+<?php
+
+include 'functions.php';
+$conn = getConnection();
+$results = $results3 = array();
+$bookingRes = array();
+$destination =  $numberOfPeople = $trip_start =  $trip_end = null;
+$bookingRes = array();
+
+//if statement one by one??????????????????????????????????????????????????????????????
+if (
+  !empty($_REQUEST['destination']) and !empty($_REQUEST['numberOfPeople']) and !empty($_REQUEST['tripStart'])
+  and !empty($_REQUEST['tripEnd'])
+) {
+
+  $destination = mysqli_real_escape_string($conn, $_REQUEST['destination']);
+  $numberOfPeople = mysqli_real_escape_string($conn, $_REQUEST['numberOfPeople']);
+  $trip_start = mysqli_real_escape_string($conn, $_REQUEST['tripStart']);
+  $trip_end = mysqli_real_escape_string($conn, $_REQUEST['tripEnd']);
+
+  $sql = "SELECT a.accommodationID,accommodation_name,`description`,price_per_night,`location`,country,shortDesc FROM accommodation a, booking b
+      WHERE (`location` = ? or  country = ? ) and (( `start_date` <= ? and `end_date` > ? ) or 
+      ( `start_date` < ? and `end_date` >= ? ) or ( `start_date` >= ? and `end_date` < ? )) and a.accommodationID = b.accommodationID ORDER BY `start_date`";
+  if ($stmt = mysqli_prepare($conn, $sql)) {
+
+    mysqli_stmt_bind_param($stmt, "ssssssss", $destination, $destination, $trip_start, $trip_start, $trip_end, $trip_end, $trip_start, $trip_end);
+
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+
+    $results = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    foreach ($results as $res) {
+      $bookingRes[] = $res['accommodationID'];
+    }
+    $bookingUnique = array_unique($bookingRes, SORT_REGULAR);
+    //print_r($bookingUnique);
+    //SELECT ONLY ACCOMMOADTION STAFF TO MAKE IT UNIQE
+    // $bookingUnique = array_unique($results,SORT_REGULAR);
+    // print_r($bookingUnique);
+
+    $sql = "SELECT a.accommodationID,accommodation_name,`description`,price_per_night,`location`,country,accommodationType, shortDesc , imageID, imageName FROM accommodation a, images i
+      WHERE (`location` = ? or  country = ? ) and a.accommodationID = i.accommodationID";
+    if ($stmt = mysqli_prepare($conn, $sql)) {
+
+      mysqli_stmt_bind_param($stmt, "ss", $destination, $destination);
+
+      mysqli_stmt_execute($stmt);
+
+      $result = mysqli_stmt_get_result($stmt);
+
+      $results = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+
+      foreach ($results as $res) {
+        // echo "dfsdfsdfsfsfsdf";
+        for ($i = 0; $i < count($bookingUnique); $i++) {
+          if (isset($res)) {
+            if ($res['accommodationID'] == $bookingUnique[$i]) {
+              unset($res);
+            }
+          }
+        }
+        if (isset($res)) {
+          $bookingRes[] = $res;
+        }
+      }
+    }
+  }
+  mysqli_free_result($result);
+  mysqli_close($conn);
+}
+
+if (isset($_GET['filterSubmit'])) {
+  echo " havent set it yet";
+}
+
+?>

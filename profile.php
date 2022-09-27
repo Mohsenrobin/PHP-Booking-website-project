@@ -1,16 +1,11 @@
 <?php
-//Include functions.php to have access to functions like connection, header and footer
-include 'functions.php';
 
-//getting the connection
+include 'functions.php';
 $conn = getConnection();
 $results = array();
 $selected = "";
-
-//checking sessions status
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-
     if (!isset($_SESSION['forename'])) {
         $user = 'Guest';
     } else {
@@ -22,20 +17,59 @@ if (session_status() === PHP_SESSION_NONE) {
         $userID = $_SESSION['id'];
     }
 }
-//Check if user is not signed in, unset sessions and send it to the login page 
-if (!isset($_SESSION['id'])) {
-    unset($_SESSION['numberOfPeople']);
-    unset($_SESSION['start_date']);
-    unset($_SESSION['end_date']);
-    header('location: login.php');
+if (isset($_SESSION['id'])) {
+    if (isset($_REQUEST['bookButton'])) {
+
+        $idToSave = mysqli_real_escape_string($conn, $_REQUEST['id_to_save']);
+        $price = mysqli_real_escape_string($conn, $_REQUEST['price_per_night']);
+
+        echo $idToSave . "sssssssss" . $price . $_REQUEST['bookingNote'];
+        if (isset($_SESSION['id'])) {
+            $numberOfPeople = mysqli_real_escape_string($conn, $_SESSION['numberOfPeople']);
+            $start_date = mysqli_real_escape_string($conn, $_SESSION['start_date']);
+            $end_date = mysqli_real_escape_string($conn, $_SESSION['end_date']);
+            $userId = mysqli_real_escape_string($conn, $_SESSION['id']);
+            $note = mysqli_real_escape_string($conn, $_REQUEST['bookingNote']);
+            $price = mysqli_real_escape_string($conn, $_REQUEST['price_per_night']);
+            $totalPrice = ((strtotime($end_date) - strtotime($start_date)) / 86400) * $price;
+
+
+            $sql = "INSERT INTO booking (accommodationID, customerID, `start_date`, end_date,
+            num_guests, total_booking_cost, booking_notes) VALUES (?,?,?,?,?,?,?)";
+
+
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                echo 'ysssssssssdddddddddssssssss';
+
+                mysqli_stmt_bind_param(
+                    $stmt,
+                    "iissids",
+                    $idToSave,
+                    $userId,
+                    $start_date,
+                    $end_date,
+                    $numberOfPeople,
+                    $totalPrice,
+                    $note
+                );
+
+                $queryResult = mysqli_stmt_execute($stmt);
+            }
+        } else {
+            print_r($accommodation);
+            print_r($_SESSION['accommodation']);
+                //header('location: signIn.php');
+            ;
+        }
+    }
+} else {
+    echo "Please login first";
+    header('Refresh:5; url=login.php');
 }
 
-// Getting data from accommodation , booking and images tables to show all booked properties
+
 $sql = "SELECT * FROM  accommodation a, booking b, images i
     WHERE customerID = ? and a.accommodationID = b.accommodationID and a.accommodationID = i.accommodationID ";
-
-
-//Prepare statement
 if ($stmt = mysqli_prepare($conn, $sql)) {
 
     mysqli_stmt_bind_param($stmt, "i", $userID);
@@ -44,17 +78,13 @@ if ($stmt = mysqli_prepare($conn, $sql)) {
 
     $result = mysqli_stmt_get_result($stmt);
 
-    //Storing the result of the sql query
     $results = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-//Checking for deleteButton
 if (isset($_POST['deleteButton'])) {
-
-    //Stroing the id of the booking that needs to be removed.
     $selected = mysqli_real_escape_string($conn, $_REQUEST['id_to_delete']);
+    echo $selected . "dsdddddddddddd";
 
-    //Sql query to delete the Booking
     $sql = "DELETE FROM  booking WHERE customerID = ? and bookingID = ?";
     if ($stmt = mysqli_prepare($conn, $sql)) {
 
@@ -62,65 +92,65 @@ if (isset($_POST['deleteButton'])) {
 
         mysqli_stmt_execute($stmt);
 
-        //
         $result = mysqli_stmt_get_result($stmt);
         if ($result) {
             $results = mysqli_fetch_all($result, MYSQLI_ASSOC);
         }
     }
-    //Refreshing the page after the item is deleted.
     header('location: profile.php');
-
-    //Free the result
-    mysqli_free_result($result);
 }
-//Free the resources
-mysqli_close($conn);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<!-- Getting the Header  -->
-<?php echo getHeader('User Profile'); ?>
+<?php echo getHeader(); ?>
 
-<!-- The grid which takes care of the profile elements  -->
-<div id=profileContainer>
+<main>
+    <div id=profileGridContainer>
 
-    <!-- Printing out all booked accommodations  -->
-    <div class="myBookings">
+        <div id=profileNav>
+            <ul>
+                <li><a href="">Edit your information</a></li>
+                <li><a href="">Delete your profile</a></li>
+                <li><a href="">Customer service</a></li>
+            </ul>
+        </div>
 
-        <?php
-        if (empty($results)) {
-            errorHandling("You haven't booked any property yet");
-        }
-        foreach ($results as $res) { ?>
-            <div class="searchResultProfile">
-                <img src="assets/images/<?php echo $res['imageName']; ?>" border="0" alt="W3Schools" width="250" height="175">
-                <!-- Printing out all details  -->
-                <div class="descriptionProfile">
-                    <p class="listingNameProfile"><?php echo $res['accommodation_name']; ?></p>
-                    <p class="locationProfile"><?php echo $res['location']; ?><br></p>
-                    <div class="listingDetails2Profile">Check-In : <?php echo $res['start_date']; ?><br>
-                        Check-Out : <?php echo $res['end_date']; ?><br></div>
-                    <p id="priceProfile">£<?php echo $res['price_per_night'] ?></p>
-                    <p id="perNightProfile"> per night</p><br><br>
-                    <p id="totalProfile"> Total price </p>
-                    <p id="totalPriceProfile">£<?php echo $res['total_booking_cost'] ?></p>
-                    <span>
-                        <!-- The form that is responsible for deleting the item  -->
-                        <form id="deleteMyBooking" action="profile.php" method="POST">
-                            <input type="hidden" name="id_to_delete" value="<?php echo $res['bookingID'] ?>">
-                            <input id="button" type="submit" name="deleteButton" value="Cancel Reservation">
-                        </form>
-                    </span>
+        <div class="myBookings">
+            <?php foreach ($results as $res) { ?>
+                <div class="searchResultProfile">
+                    <img src="<?php echo $res['imageName']; ?>" border="0" alt="W3Schools" width="250" height="175">
+
+                    <div class="descriptionProfile">
+                        <p class="listingNameProfile"><?php echo $res['accommodation_name']; ?></p>
+                        <!-- Total booking cost : <?php echo $res['total_booking_cost']; ?> -->
+                        <p class="locationProfile"><?php echo $res['location']; ?><br></p>
+                        <div class="listingDetails2Profile">Check-In : <?php echo $res['start_date']; ?><br>
+                            Check-Out : <?php echo $res['end_date']; ?><br></div>
+                        <p id="priceProfile">£<?php echo $res['price_per_night'] ?></p>
+                        <p id="perNightProfile"> per night</p><br><br>
+                        <p id="totalProfile"> Total price </p>
+                        <p id="totalPriceProfile">£<?php echo $res['total_booking_cost'] ?></p>
+                        <span>
+                            <form id="deleteMyBooking" action="profile.php" method="POST">
+                                <input type="hidden" name="id_to_delete" value="<?php echo $res['bookingID'] ?>">
+                                <input id="button" type="submit" name="deleteButton" value="Cancel Reservation">
+                            </form>
+                        </span>
+                    </div>
+
                 </div>
-
-            </div>
-        <?php } ?>
+            <?php } ?>
+        </div>
     </div>
-</div>
+</main>
 
-<!-- Getting the Footer  -->
+
+
+
+
+
+
+
 <?php echo getFooter(); ?>
 
 

@@ -1,0 +1,970 @@
+body {
+  margin: 0;
+  background-color: rgb(189, 245, 154);
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#headerGridContainer {
+
+  background-color: rgb(197, 127, 255);
+  /* padding: 10px; */
+  display: grid;
+  /* grid-template-rows: auto;
+  grid-template-columns: auto; */
+  grid-template-areas:
+    "logoDiv headerNav"
+}
+
+#logoDiv {
+  text-align: left;
+  grid-area: logoDiv;
+  /* padding: 0; */
+  background-color: rgb(241, 198, 5);
+  /* height: 50px;
+  width: 300px; */
+}
+
+
+#headerNav {
+  grid-area: headerNav;
+  background-color: rgba(252, 240, 5, 0.764);
+
+}
+
+#headerNav ul {
+  list-style: none;
+  background-color: #444;
+  text-align: center;
+}
+
+#headerNav li {
+  float: right;
+  font-family: 'Oswald', sans-serif;
+}
+
+#headerNav a {
+  text-decoration: none;
+  padding-left: 3px;
+  padding-top: 3px;
+  padding-right: 10px;
+  padding-bottom: 3px;
+  margin-left: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  color: rgb(8, 8, 8);
+  display: block;
+  transition: .3s background-color;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+#headerNav p {
+  /* border: 3px solid rgb(172, 242, 22); */
+  /* text-decoration: none; */
+  padding-left: 3px;
+  padding-top: 3px;
+  padding-right: 10px;
+  padding-bottom: 3px;
+  margin-left: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  color: rgb(14, 18, 244);
+  display: block;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* background-color: aqua; */
+
+}
+
+#headerNav a:hover {
+  color: rgb(104, 104, 104);
+  ;
+}
+
+#headerNav a.active {
+  background-color: rgb(100, 3, 3);
+  color: #444;
+  cursor: default;
+}
+
+#footerGridContainer {
+  padding: 10px;
+  background-color: rgb(233, 25, 39);
+  overflow-x: hidden;
+}
+
+
+#mainGridContainer {
+  background-color: aquamarine;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+  grid-template-areas:
+    "homeImage homeImage"
+    "searchForm searchForm"
+    "explore explore";
+}
+
+#homeImage {
+  grid-area: homeImage;
+}
+
+
+.searchForm {
+  grid-area: searchForm;
+  display: inline-block;
+  flex-flow: column wrap;
+  align-items: center;
+  font-size: large;
+  margin-top: -25px;
+  position: relative;
+
+}
+
+.searchForm input {
+  border-radius: 10px;
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  font-size: medium;
+
+}
+
+.searchForm label {
+  font-size: larger;
+
+}
+
+.searchForm button {
+  border-radius: 10px;
+  margin: 5px 10px 5px 0;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  background-color: rgb(185, 77, 110);
+  border: 1px solid #ddd;
+  color: white;
+  font-size: large;
+  max-width: 100%;
+  max-height: 100%;
+  width: 200px;
+  height: fit-content;
+
+
+}
+
+/* .searchForm input {
+  margin: 10px 0;
+}
+
+.searchForm {
+  flex-direction: row;
+  align-items: stretch;
+} */
+
+.explore {
+  grid-area: explore;
+  background-color: rgb(255, 127, 208);
+  padding: 50px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+  grid-template-areas:
+    "explore1 explore2"
+    "explore3 explore4";
+}
+
+.img__description {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5);
+  /* Black see-through */
+  color: #f1f1f1;
+  /* width: 100%; */
+  transition: .5s ease;
+  opacity: 0;
+  color: rgb(229, 236, 227);
+  font-size: 20px;
+  padding-top: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.exp1:hover .img__description {
+  opacity: 1;
+}
+
+.exp2:hover .img__description {
+  opacity: 1;
+}
+
+.exp3:hover .img__description {
+  opacity: 1;
+}
+
+.exp4:hover .img__description {
+  opacity: 1;
+}
+
+.text a {
+  color: rgb(169, 33, 33);
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  text-decoration: none;
+}
+
+.exp1 {
+  grid-area: explore1;
+  background-color: rgb(185, 231, 66);
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
+.exp2 {
+  grid-area: explore2;
+  background-color: rgb(241, 198, 5);
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+
+}
+
+.exp3 {
+  grid-area: explore3;
+  background-color: rgb(13, 97, 171);
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
+.exp4 {
+  grid-area: explore4;
+  background-color: rgb(254, 240, 255);
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
+
+#listingGridContainer {
+  background-color: rgb(138, 230, 230);
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 50px;
+  padding-bottom: 125px;
+  gap: 0;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+  grid-template-columns: 1fr 4fr;
+
+  grid-template-areas:
+    "searchForm searchForm "
+    "nav listing ";
+}
+
+#nav {
+  grid-area: nav;
+  /* background-color: rgb(196, 197, 255); */
+  width: 15vw;
+  text-align: left;
+  margin: 0;
+}
+
+.searchNav {
+  margin: 0;
+  display: inline-block;
+  flex-flow: row;
+  align-items: center;
+  padding-left: 35px;
+  padding-top: 35px;
+  padding-bottom: 0;
+  padding-right: 0;
+  flex-direction: column;
+
+}
+
+.searchNav .budget {
+  font-weight: bold;
+  text-align: justify;
+}
+
+.searchNav .filters {
+  text-align: justify;
+  margin-bottom: 5px;
+  font-weight: bold;
+  margin-left: 15px;
+  font-size: larger;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.searchNav button {
+  margin: 0;
+  padding: 10px 20px;
+  background-color: rgb(77, 185, 185);
+  border: 1px solid #ddd;
+  color: white;
+  border-radius: 5px;
+}
+
+.searchNav input {
+  margin-bottom: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  text-align: left;
+  /* display: block; */
+}
+
+.searchNav label {
+  margin-bottom: 10px;
+  vertical-align: middle;
+  background-color: transparent;
+  text-align: left;
+  /* background-color: coral; */
+}
+
+.searchResult {
+  border-radius: 15px;
+  background-color: rgb(125, 226, 226);
+  padding: 5px 5px 5px 5px;
+  max-width: 100%;
+  display: grid;
+  margin: 10px;
+  grid-template-columns: 1fr 2fr;
+  text-decoration: none;
+  grid-template-areas:
+    "img description"
+}
+
+.searchResult img {
+  padding: 5px;
+  border-radius: 15px;
+  grid-area: img;
+  /* max-width: fit-content;
+  max-height: fit-content; */
+  margin-right: 0;
+
+  background-color: #fff;
+}
+
+.description {
+  grid-area: description;
+  max-width: 100%;
+  max-height: 288px;
+  padding-left: 10px;
+  font-size: 15px;
+  overflow: auto;
+  text-align: left;
+  float: left;
+  position: relative;
+
+}
+
+.listing {
+  grid-area: listing;
+  text-align: center;
+  font-size: 20px;
+  margin: 0;
+  width: 60vw;
+  gap: 0;
+  /* background-color: rgba(203, 161, 20, 0.849); */
+}
+
+.listingName {
+  margin: 0;
+  font-size: larger;
+  padding: 0;
+  font-weight: bold;
+
+}
+
+.listingDetails1 {
+  font-size: medium;
+  max-width: 80%;
+  text-align: justify;
+  margin-bottom: 10px;
+  margin-top: -10px;
+  font-weight: bold;
+}
+
+.listingDetails2 {
+  font-size: medium;
+  max-width: 80%;
+  text-align: justify;
+  margin-top: 0;
+}
+
+.location {
+  padding: 0;
+  margin: 0;
+  font-size: small;
+  margin-bottom: 10px;
+}
+
+.description span {
+
+  float: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+}
+
+#price {
+  font-size: larger;
+  padding: 0;
+  margin: 0;
+  float: right;
+}
+
+#perNight {
+  padding: 0;
+  margin: 0;
+  font-size: smaller;
+  float: right;
+}
+
+.description .priceDetails {
+  font-size: smaller;
+}
+
+#detailsGridContainer {
+  background-color: rgb(195, 230, 138);
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 50px;
+  padding-bottom: 125px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+    "image details1"
+    "details2 book";
+
+}
+
+#image1 {
+  grid-area: image;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: aliceblue;
+  width: fit-content;
+}
+
+/* #listingGridContainer ul {
+  list-style-type: none;
+  background-color: brown;
+  width: fit-content;
+  min-width: fit-content;
+  max-width: fit-content;
+  margin: 0;
+  padding: 0;
+}
+
+#imageGalery2 {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+#imageGalery3 {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+#imageGalery4 {
+  position: relative;
+  margin: 0;
+  padding: 0;
+} */
+
+.details1 {
+  grid-area: details1;
+  position: relative;
+  /* background-color: aqua; */
+  text-align: left;
+  margin-left: 5px;
+}
+
+#details2 {
+  grid-area: details2;
+  position: relative;
+  /* background-color: rgb(184, 189, 51); */
+  text-align: center;
+  font-size: 20px;
+  margin: 0;
+  text-decoration: none;
+}
+
+.details1Name {
+  margin: 5px;
+  font-size: x-large;
+  /* padding-bottom: 10px; */
+  /* background-color: rgb(161, 167, 105); */
+
+}
+
+.details1location {
+  padding: 0;
+  margin: 5px;
+  font-size: medium;
+  padding-bottom: 10px;
+
+  /* background-color: rgb(255, 0, 162); */
+
+}
+
+.details1Details {
+  width: fit-content;
+  padding-bottom: 10px;
+
+}
+
+.details1Details h3 {
+  padding: 0;
+  margin: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.details1Details h5 {
+  padding: 0;
+  margin: 5px;
+  padding-bottom: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.details1Details ul li {
+  padding: 10px;
+  margin: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: normal;
+}
+
+.details1 span {
+  padding: 15px;
+  float: right;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  /* background-color: rgb(255, 119, 0); */
+
+}
+
+
+#details1price {
+  padding-left: 8px;
+  font-size: larger;
+  float: left;
+  margin-bottom: 10px;
+  /* background-color: rgb(200, 0, 255); */
+
+}
+
+#details1perNight {
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 1px;
+  font-size: smaller;
+  float: left;
+  text-align: center;
+  /* background-color: rgb(106, 0, 255); */
+}
+
+#total {
+  margin-top: 1px;
+  padding-left: 8px;
+  font-size: x-large;
+  float: left;
+  text-align: center;
+  /* background-color: rgb(255, 0, 162); */
+}
+
+#totalPrice {
+  margin-top: 1px;
+  padding-left: 11px;
+  margin-left: 2px;
+  font-size: x-large;
+  float: left;
+  /* text-align: end; */
+  /* background-color: rgb(0, 255, 72); */
+}
+
+
+.details2Details {
+  font-size: medium;
+  /* max-width: 80%; */
+  text-align: justify;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.details2description {
+  /* background-color: #fff; */
+  /* max-width: 630px; */
+  /* max-height: 288px; */
+  padding-left: 10px;
+  font-size: 15px;
+  overflow: auto;
+  text-align: left;
+  float: left;
+  position: relative;
+}
+
+#book {
+  grid-area: book;
+  margin: 0;
+  display: inline-block;
+  flex-flow: row;
+  /* padding-left: 35px;
+  padding-top: 35px;
+  padding-bottom: 0;
+  padding-right: 0; */
+  flex-direction: column;
+  /* background-color: blueviolet; */
+  /* text-align: left; */
+  align-items: center;
+
+}
+
+#notes {
+  height: 100px;
+  width: fit-content;
+  text-align: start;
+  margin: 10px;
+  resize: none;
+
+}
+
+#book #button {
+  width: fit-content;
+  height: fit-content;
+  padding: 20px;
+  margin: 20px;
+  position: relative;
+}
+
+
+.loginForm {
+  flex-direction: column;
+  /* display: inline-block; */
+  flex-flow: row wrap;
+  align-items: center;
+  font-size: large;
+  position: relative;
+  float: inline-end;
+
+}
+
+.loginBox {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  /* align-items: center; */
+  /* position: relative; */
+  width: 50%;
+  height: auto;
+  border: 3px solid #ccc;
+  border-radius: 14px;
+
+  /* background-color: chocolate; */
+}
+
+.loginForm input {
+  /* width: 100%; */
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+}
+
+.loginForm label {
+  font-size: medium;
+
+}
+
+.loginForm button {
+  border-radius: 10px;
+  margin: 5px 5px 5px 0;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  background-color: rgb(185, 77, 110);
+  border: 1px solid #ddd;
+  color: white;
+  font-size: large;
+  max-width: 100%;
+  max-height: 100%;
+  width: 210px;
+  height: fit-content;
+
+
+}
+
+.registerForm {
+  flex-direction: column;
+  /* display: inline-block; */
+  flex-flow: row wrap;
+  align-items: center;
+  font-size: large;
+  position: relative;
+  float: inline-end;
+
+}
+
+.registerBox {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  /* align-items: center; */
+  /* position: relative; */
+  width: 50%;
+  height: auto;
+  border: 3px solid #ccc;
+  border-radius: 14px;
+
+  /* background-color: chocolate; */
+}
+
+.registerForm input {
+  /* width: 100%; */
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+}
+
+.registerForm label {
+  font-size: medium;
+
+}
+
+.registerForm button {
+  border-radius: 10px;
+  margin: 5px 5px 5px 0;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  background-color: rgb(185, 77, 110);
+  border: 1px solid #ddd;
+  color: white;
+  font-size: large;
+  max-width: 100%;
+  max-height: 100%;
+  width: 210px;
+  height: fit-content;
+
+
+}
+
+/* ////////////////////////////////////////////////////////////////////////////////// */
+
+#profileGridContainer {
+  background-color: rgb(138, 230, 230);
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 50px;
+  padding-bottom: 125px;
+  gap: 0;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+  grid-template-columns: 1fr 4fr;
+  grid-template-areas:
+    "profileNav listingProfile ";
+}
+
+.myBookings {
+  grid-area: listingProfile;
+  text-align: center;
+  font-size: 20px;
+  margin: 0;
+  width: 60vw;
+  gap: 0;
+  /* background-color: rgba(203, 161, 20, 0.849); */
+}
+
+.searchResultProfile {
+  border-radius: 15px;
+  background-color: rgb(121, 146, 229);
+  padding: 5px 5px 5px 5px;
+  max-width: fit-content;
+  max-height: fit-content;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  text-decoration: none;
+  grid-template-areas:
+    "img descriptionProfile"
+
+}
+
+.searchResultProfile img {
+  padding: 5px;
+  border-radius: 15px;
+  grid-area: img;
+  max-width: fit-content;
+  max-height: fit-content;
+  margin-right: 0;
+  max-width: fit-content;
+  max-height: fit-content;
+  background-color: #fff;
+}
+
+.descriptionProfile {
+  grid-area: descriptionProfile;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 5px;
+  margin-left: 10px;
+  font-size: 15px;
+  overflow: auto;
+  text-align: left;
+  float: left;
+  position: relative;
+  /* background-color: coral; */
+
+}
+
+
+.listingNameProfile {
+  margin: 0;
+  font-size: larger;
+  padding: 0;
+  font-weight: bold;
+
+}
+
+
+
+.listingDetails2Profile {
+  font-size: medium;
+  max-width: 80%;
+  text-align: justify;
+  margin-top: 0;
+}
+
+.locationProfile {
+  padding: 0;
+  margin: 0;
+  font-size: small;
+  margin-bottom: 10px;
+}
+
+.descriptionProfile span {
+
+  float: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+}
+
+#priceProfile {
+  font-size: larger;
+  padding: 0;
+  margin: 0;
+  float: left;
+  /* background-color: rgb(200, 255, 0); */
+
+}
+
+#perNightProfile {
+  padding: 0;
+  margin: 0;
+  font-size: smaller;
+  float: left;
+  /* background-color: rgb(102, 0, 255); */
+
+}
+
+#totalProfile {
+  /* margin-top: 1px;
+  padding-left: 8px; */
+  font-size: large;
+  float: left;
+  text-align: center;
+  /* background-color: rgb(255, 0, 162); */
+
+}
+
+#totalPriceProfile {
+  /* margin-top: 1px; */
+  padding-left: 11px;
+  /* margin-left: 2px; */
+  font-size: large;
+  float: left;
+  /* text-align: end; */
+  /* background-color: rgb(0, 255, 72); */
+
+}
+
+#deleteMyBooking {
+  grid-area: deleteMyBooking;
+  margin: 10px;
+  /* display: inline-block; */
+  /* flex-flow: row;
+  flex-direction: column;
+  align-items: right;
+  float: right; */
+  width: 10%;
+  height: 10%;
+}
+
+#deleteMyBooking #button {
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  margin: 10px;
+  position: relative;
+  border-radius: 15px;
+  background-color: cadetblue;
+}
+
+.descriptionProfile .priceDetails {
+  font-size: smaller;
+}
+
+#profileNav {
+  grid-area: profileNav;
+  padding: 5px, 5px, 5px, 5px;
+  width: 20vw;
+  color: bisque;
+  background-color: rgb(175, 104, 141);
+}

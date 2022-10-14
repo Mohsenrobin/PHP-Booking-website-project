@@ -23,7 +23,7 @@
 <?php function getConnection()
 {
 
-    define('DB_NAME', 'unn_w21067284');
+    define('DB_NAME', '');
     define('DB_USER', 'root');
     define('DB_PASSWORD', '');
     define('DB_HOST', 'localhost');
